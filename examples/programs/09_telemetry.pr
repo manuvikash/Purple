@@ -1,0 +1,10 @@
+// 09 — Free variables (`gap`, `fuel_left`) come from telemetry JSON; types JSON tells the checker the units.
+// Run:
+//   python -m purple examples/programs/09_telemetry.pr ^
+//     --telemetry examples/programs/09_telemetry.values.json ^
+//     --telemetry-types examples/programs/09_telemetry.types.json
+
+query fuel_and_gap {
+  require gap > seconds(1.0);
+  require fuel_left < percent(95.0);
+}

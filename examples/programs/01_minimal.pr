@@ -1,0 +1,8 @@
+// 01 — Smallest valid program: one model field and a trivially passing query.
+// Run: python -m purple examples/programs/01_minimal.pr
+
+model session { label = "smoke_test"; }
+
+query ok {
+  require true;
+}

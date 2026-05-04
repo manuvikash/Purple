@@ -1,0 +1,9 @@
+// 10 — Integer unit constructors `lap` and `position` (argument must be plain int).
+// Run: python -m purple examples/programs/10_lap_position.pr
+
+query track_position {
+  let here: lap = lap(42);
+  let place: position = position(5);
+  require here > lap(3);
+  require place <= position(10);
+}

@@ -1,0 +1,14 @@
+// 08 — Two independent queries in one file (each evaluated separately at runtime).
+// Run: python -m purple examples/programs/08_two_queries.pr
+
+fn positive(x: float) -> bool {
+  return x > 0.0;
+}
+
+query tyres_fine {
+  require positive(1.0);
+}
+
+query brakes_fine {
+  require positive(0.5) and positive(0.25);
+}

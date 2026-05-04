@@ -1,0 +1,7 @@
+// 04 — Boolean combinators and `not`.
+// Run: python -m purple examples/programs/04_boolean_logic.pr
+
+query logic {
+  require (true or false) and not false;
+  require not (false and true);
+}

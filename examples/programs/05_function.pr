@@ -1,0 +1,11 @@
+// 05 — User-defined function with `return`.
+// Run: python -m purple examples/programs/05_function.pr
+
+fn near_pit(entry: seconds) -> bool {
+  let max_approach: seconds = seconds(15.0);
+  return entry < max_approach;
+}
+
+query approach_ok {
+  require near_pit(seconds(8.5));
+}

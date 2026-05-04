@@ -1,0 +1,40 @@
+// 12 — Larger example: model + several helpers + two queries + telemetry.
+// Adjust values in 12_race.values.json to flip query outcomes.
+//
+// Run:
+//   python -m purple examples/programs/12_race_strategy.pr --telemetry examples/programs/12_race.values.json --telemetry-types examples/programs/12_race.types.json
+
+model weekend {
+  circuit = "Monza";
+  format = "sprint";
+}
+
+fn gap_safe(separation: seconds) -> bool {
+  let min_ok: seconds = seconds(1.2);
+  return separation >= min_ok;
+}
+
+fn pace_advantage(delta_per_lap: seconds) -> bool {
+  let epsilon: seconds = seconds(0.05);
+  return delta_per_lap > epsilon;
+}
+
+fn midfield_cluster(pos: position) -> bool {
+  let limit: position = position(8);
+  return pos <= limit;
+}
+
+query stop_is_realistic {
+  let our_loss: seconds = seconds(22.0);
+  let their_loss: seconds = seconds(25.0);
+  require pace_advantage(their_loss - our_loss);
+  require gap_safe(traffic_gap);
+}
+
+query undercut_threat {
+  if midfield_cluster(car_position) {
+    require rival_gap < seconds(1.5);
+    require gap_safe(traffic_gap);
+  }
+  require fuel_reserve_pct > percent(12.0);
+}

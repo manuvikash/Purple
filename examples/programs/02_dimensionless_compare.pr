@@ -1,0 +1,6 @@
+// 02 — Plain float comparison (dimensionless).
+// Run: python -m purple examples/programs/02_dimensionless_compare.pr
+
+query faster_than_target {
+  require 3.5 < 4.2;
+}

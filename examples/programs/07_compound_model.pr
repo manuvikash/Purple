@@ -1,0 +1,8 @@
+// 07 — Model provides a compound (tyre) constant; query compares compounds.
+// Run: python -m purple examples/programs/07_compound_model.pr
+
+model stint { tyre = MEDIUM; }
+
+query on_mediums {
+  require tyre == MEDIUM;
+}

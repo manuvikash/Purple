@@ -1,0 +1,11 @@
+// 06 — `if` only runs inner `require` blocks when the condition holds.
+// Run: python -m purple examples/programs/06_if_guard.pr
+
+query guarded {
+  if false {
+    require false;
+  }
+  if true {
+    require 1 < 2;
+  }
+}

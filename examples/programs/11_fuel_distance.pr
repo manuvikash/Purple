@@ -1,0 +1,9 @@
+// 11 — Other float units (`fuel`, `distance`) and scalar scaling.
+// Run: python -m purple examples/programs/11_fuel_distance.pr
+
+query load_and_runoff {
+  let min_fuel: fuel = fuel(5.0);
+  let dist: distance = distance(200.0);
+  require dist > distance(100.0) * 0.5;
+  require min_fuel < fuel(20.0);
+}

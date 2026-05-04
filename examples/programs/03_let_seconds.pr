@@ -1,0 +1,8 @@
+// 03 — Unit constructors and `let` binding.
+// Run: python -m purple examples/programs/03_let_seconds.pr
+
+query pit_delta {
+  let target: seconds = seconds(2.8);
+  let actual: seconds = seconds(2.1);
+  require actual < target;
+}
