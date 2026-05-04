@@ -1,0 +1,12 @@
+model monza {
+  track = "Monza";
+}
+
+fn safe_gap(gap: seconds) -> bool {
+  let margin: seconds = seconds(2.5);
+  return gap > margin;
+}
+
+query feasible {
+  require safe_gap(traffic_gap);
+}
