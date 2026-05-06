@@ -1,0 +1,46 @@
+// 13 — Pit-window decision: model fields consumed directly inside queries.
+//
+// Model fields are raw literals (no unit constructors allowed there).
+// Queries lift them into unit-typed expressions via seconds() and lap(),
+// then pass those to functions — keeping unit safety across the whole program.
+// Changing the model is how you adapt this strategy file to a different circuit.
+//
+// Run:
+//   python -m purple examples/programs/13_pit_window.pr --telemetry examples/programs/13_pit.values.json --telemetry-types examples/programs/13_pit.types.json
+
+model circuit {
+  pit_loss = 24.0;      // Monza pit lane loss in seconds (raw float)
+  safety_factor = 1.1;  // headroom multiplier (dimensionless)
+  target_tyre = SOFT;   // intended race compound
+  window_open = 18;     // earliest pit lap (raw int)
+  window_close = 24;    // latest pit lap before tyre cliff (raw int)
+}
+
+fn gap_covers_loss(gap: seconds, threshold: seconds) -> bool {
+  return gap > threshold;
+}
+
+fn in_window(curr: lap, open: lap, close: lap) -> bool {
+  return curr >= open and curr <= close;
+}
+
+fn undercut_imminent(gap: seconds) -> bool {
+  let danger_zone: seconds = seconds(1.5);
+  return gap < danger_zone;
+}
+
+query box_this_lap {
+  let threshold: seconds = seconds(pit_loss) * safety_factor;
+  let open: lap = lap(window_open);
+  let close: lap = lap(window_close);
+  require in_window(current_lap, open, close);
+  require gap_covers_loss(gap_to_car_behind, threshold);
+  require fuel_pct > percent(8.0);
+}
+
+query overcut_risk {
+  require rival_gap < seconds(22.0);
+  if current_tyre == target_tyre {
+    require undercut_imminent(rival_gap);
+  }
+}

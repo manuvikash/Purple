@@ -24,6 +24,7 @@ pip install -r requirements-dev.txt
 | `examples/` | End-to-end CLI sample (`monza_strategy.pr` + JSON) |
 | `examples/programs/` | Progressive `.pr` tutorials (01–12); some pair with `*.values.json` / `*.types.json` |
 | `scripts/run_all_usecases.py` | Demo script covering many language and error paths |
+| `editors/vscode-purple/` | VS Code / Cursor: TextMate highlighting for `.pr` — build `.vsix` and install (see `editors/vscode-purple/README.md`) |
 
 ## Run a program
 

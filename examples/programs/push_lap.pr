@@ -1,0 +1,19 @@
+// Qualifying push-lap readiness check.
+//
+// Run:
+//   python -m purple examples/programs/push_lap.pr --telemetry examples/programs/push_lap.values.json --telemetry-types examples/programs/push_lap.types.json
+
+model session {
+  target_compound = SOFT;
+  min_tyre_age = 3;
+}
+
+fn tyre_ready(age: lap, min: lap) -> bool {
+  return age >= min;
+}
+
+query ready_to_push {
+  let min: lap = lap(min_tyre_age);
+  require current_compound == target_compound;
+  require tyre_ready(tyre_age, min);
+}

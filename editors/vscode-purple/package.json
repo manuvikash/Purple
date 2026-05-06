@@ -1,0 +1,28 @@
+{
+  "name": "purple-syntax",
+  "displayName": "Purple (syntax)",
+  "description": "Syntax highlighting for the Purple race-strategy DSL (.pr files).",
+  "version": "0.1.0",
+  "publisher": "purple-local",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [
+      {
+        "id": "purple",
+        "aliases": ["Purple", "purple"],
+        "extensions": [".pr"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "purple",
+        "scopeName": "source.purple",
+        "path": "./syntaxes/purple.tmLanguage.json"
+      }
+    ]
+  }
+}
